@@ -154,10 +154,10 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable, PeasGtk.Configurab
 
     def _get_newfile_directory(self):
         '''
-        Fetch the new-file directory that has speen specified in the user settings.
+        Fetch the new-file directory that has been specified in the user settings.
         '''
         logging.debug("AutonamePlugin._get_newfile_directory")
-        return self._get_settings().get_string(SettingsBox._SETTING_NEW_FILE_DIRPATH) or pathlib.Path.home()
+        return self._get_settings().get_string(SettingsBox._SETTING_NEW_FILE_DIRPATH) or str(pathlib.Path.home())
 
     def _autoname_document(self, document):
         '''
@@ -221,7 +221,7 @@ class SettingsBox(Gtk.Box):
 
         # Initialize the folder-chooser button by populating it with whatever the user had in
         # their settings (otherwise set it to their home directory).
-        dirpath = self._settings.get_string(self._SETTING_NEW_FILE_DIRPATH) or pathlib.Path.home()
+        dirpath = self._settings.get_string(self._SETTING_NEW_FILE_DIRPATH) or str(pathlib.Path.home())
         self._folder_chooser.set_current_folder(dirpath)
 
         # Connect the folder-chooser button to update our plugin settings every time the user
